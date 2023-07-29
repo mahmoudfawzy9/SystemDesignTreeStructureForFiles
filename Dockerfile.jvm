@@ -1,0 +1,5 @@
+FROM openjdk:17
+WORKDIR /
+ADD target/{jarName}.jar /
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/{jarName}.jar"]
