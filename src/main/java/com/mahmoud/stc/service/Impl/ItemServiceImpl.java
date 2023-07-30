@@ -72,12 +72,12 @@ public class ItemServiceImpl implements ItemService {
             }
         }
     }
+    
     @Override
     public Space createSpace(String name, PermissionGroup permissionGroup, Long userId) {
 
         UserEntity user = userRepository.findById(userId).get();
 
-        if (user.getPermissionLevel().equals(PermissionLevel.EDIT)) {
             Space space = new Space();
             space.setName(name);
             space.setType(ItemType.SPACE);
@@ -85,11 +85,19 @@ public class ItemServiceImpl implements ItemService {
 
             spaceRepository.save(space);
 
-//        assignPermissions(space, permissions);
+            List<Permission> permissions = new ArrayList<>();
 
+            if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
+                for (Permission permission: permissions) {
+                    permission.setPermissionGroup(space.getPermissionGroup());
+                    permissionRepository.save(permission);
+                }
+            }
+
+            space.setPermissions(permissions);
+            itemRepository.save(space);
             return space;
-        }
-        return null;
+        
     }
 
   @Override
