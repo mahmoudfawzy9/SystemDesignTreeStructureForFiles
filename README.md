@@ -1,6 +1,6 @@
 # SystemDesignTreeStructureForFiles
 * Tree Structure for Files Management System app name:  stc-assignment, port 8080, db name: stc, postgres, Java 17, Spring boot
-* Unhash The Data Loader class to test manually on swagger open api
+* Hash or comment The Data Loader class to test manually on swagger open api
 * http://localhost:8080/swagger-ui.html
 * FirstStep is to create user schema is ready just make a post request.
 * Secondly, Create PermissionGroup, Permission, Space, Folder, File accordingly.
