@@ -11,7 +11,7 @@
           "id": 1,
           "type": "FOLDER",
           "name": "My Folder",
-          "permissionGroup": "1",
+          "permissionGroup": 1,
     "permissions": [
   {
     "id": 1,
