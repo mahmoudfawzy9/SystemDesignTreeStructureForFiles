@@ -1,17 +1,13 @@
 package com.mahmoud.stc.controller;
 
 import com.mahmoud.stc.entity.*;
-import com.mahmoud.stc.enums.PermissionLevel;
 import com.mahmoud.stc.repository.PermissionGroupRepository;
+import com.mahmoud.stc.service.*;
 import com.mahmoud.stc.service.Impl.UserApiResponse;
-import com.mahmoud.stc.service.ItemService;
-import com.mahmoud.stc.service.UserService;
-import com.mahmoud.stc.service.SpaceService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
@@ -25,14 +21,18 @@ public class ItemController {
     private final PermissionGroupRepository permissionGroupRepository;
 
     private final UserService userService;
-    
+
     private final SpaceService spaceService;
 
-    public ItemController(ItemService itemService, PermissionGroupRepository permissionGroupRepository, UserService userService, SpaceService spaceService) {
+    private final FolderService folderService;
+
+
+    public ItemController(ItemService itemService, PermissionGroupRepository permissionGroupRepository, UserService userService, SpaceService spaceService, FolderService folderService) {
         this.itemService = itemService;
         this.permissionGroupRepository = permissionGroupRepository;
         this.userService = userService;
         this.spaceService = spaceService;
+        this.folderService = folderService;
     }
 
     @PostMapping("/stc-assessments")
@@ -47,11 +47,11 @@ public class ItemController {
         Space parent =  spaceService.getSpaceById(parentId);
         return itemService.createFolder(name, permissionGroup, parent, userId);
     }
-    
-    @PostMapping("/assessment.pdf")
-    public File createFile(@RequestParam String name, @RequestParam Long permissionGroupId, @RequestPart MultipartFile binaryFile, @RequestParam Long parentId, @RequestParam Long userId) {
+
+    @PostMapping(value="assessment.pdf" , produces =  APPLICATION_JSON_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
+    public File createFile(@RequestParam String name, @RequestParam Long permissionGroupId,  @RequestPart("binaryFile")@Valid MultipartFile binaryFile, @RequestParam Long parentId, @RequestParam Long userId) {
         PermissionGroup permissionGroup = permissionGroupRepository.findById(permissionGroupId).orElse(null);
-        Folder parent = (Folder) itemService.getItemById(parentId);
+        Folder parent =  folderService.getFolderById(parentId);
         return itemService.createFile(name, permissionGroup, binaryFile, parent, userId);
     }
 
