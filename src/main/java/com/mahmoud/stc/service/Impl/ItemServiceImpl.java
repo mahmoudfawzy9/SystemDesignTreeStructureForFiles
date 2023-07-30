@@ -93,8 +93,10 @@ public class ItemServiceImpl implements ItemService {
         return null;
     }
 
-    @Override
-    public Folder createFolder(String name, PermissionGroup permissionGroup, Folder parent, List<Permission> permissions) {
+  @Override
+    public Folder createFolder(String name, PermissionGroup permissionGroup, Space parent, Long userId) {
+
+        List<Permission> permissions = new ArrayList<>();
         Folder folder = new Folder();
         folder.setName(name);
         folder.setType(ItemType.FOLDER);
@@ -102,8 +104,18 @@ public class ItemServiceImpl implements ItemService {
         folder.setPermissionGroup(permissionGroup);
         folderRepository.save(folder);
 
-        assignPermissions(folder,permissions);
 
+        UserEntity user = userRepository.findById(userId).get();
+        //TODO would handle the VIEW and other permissions
+        if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
+            for (Permission permission : permissions) {
+                permission.setPermissionGroup(folder.getPermissionGroup());
+                permissionRepository.save(permission);
+            }
+        }
+
+        folder.setPermissions(permissions);
+        itemRepository.save(folder);
         return folder;
     }
 
