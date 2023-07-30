@@ -86,7 +86,7 @@ public class ItemServiceImpl implements ItemService {
             spaceRepository.save(space);
 
             List<Permission> permissions = new ArrayList<>();
-
+            //TODO Assign the right permissions
             if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
                 for (Permission permission: permissions) {
                     permission.setPermissionGroup(space.getPermissionGroup());
@@ -96,8 +96,7 @@ public class ItemServiceImpl implements ItemService {
 
             space.setPermissions(permissions);
             itemRepository.save(space);
-            return space;
-        
+            return space;   
     }
 
   @Override
