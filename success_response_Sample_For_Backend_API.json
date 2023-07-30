@@ -1,0 +1,12 @@
+{
+  "id": 47,
+  "type": "FOLDER",
+  "name": "My Folder 777",
+  "parent": {
+    "id": 1,
+    "type": "SPACE",
+    "name": "My Space"
+  },
+  "folders": [],
+  "files": []
+}
