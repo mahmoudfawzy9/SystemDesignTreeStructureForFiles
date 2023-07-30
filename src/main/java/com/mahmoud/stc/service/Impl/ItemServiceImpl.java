@@ -133,10 +133,17 @@ public class ItemServiceImpl implements ItemService {
         String fileUrl = getUrlForUser(file.getOriginalFileName(), userId);
         Path fileRelativeLocation = getRelativeLocationForUser(binaryFile.getOriginalFilename(), userId);
 
-// TODO revise the business to make the right permissions
+        List<Permission> permissions = new ArrayList<>();
+        // TODO revise the business to make the right permissions
+        for (Permission permission: permissions) {
+            permission.setPermissionGroup(file.getPermissionGroup());
+            permissionRepository.save(permission);
+        }
+
+        file.setPermissions(permissions);
+        itemRepository.save(file);
         saveFileForUser(binaryFile, userId);
         saveToDatabaseForUser(binaryFile.getOriginalFilename(),fileRelativeLocation, fileUrl, userId);
-//        assignPermissions(file, permissions);
 
         return file;
     }
