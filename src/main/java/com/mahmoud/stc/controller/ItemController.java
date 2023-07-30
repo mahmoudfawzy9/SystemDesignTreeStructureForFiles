@@ -39,12 +39,12 @@ public class ItemController {
     }
 
     @PostMapping("/stc-assessments/backend")
-    public Folder createFolder(@RequestParam String name, @RequestParam Long permissionGroupId, @RequestParam Long parentId, @RequestBody List<Permission> permissions) {
+    public Folder createFolder(@RequestParam String name, @RequestParam Long permissionGroupId, @RequestParam Long parentId, @RequestParam Long userId) {
         PermissionGroup permissionGroup = permissionGroupRepository.findById(permissionGroupId).orElse(null);
-        Folder parent = (Folder) itemService.getItemById(parentId);
-        return itemService.createFolder(name, permissionGroup, parent, permissions);
+        Space parent =  spaceService.getSpaceById(parentId);
+        return itemService.createFolder(name, permissionGroup, parent, userId);
     }
-
+    
     @PostMapping("/assessment.pdf")
     public File createFile(@RequestParam String name, @RequestParam Long permissionGroupId, @RequestPart MultipartFile binaryFile, @RequestParam Long parentId, @RequestParam Long userId) {
         PermissionGroup permissionGroup = permissionGroupRepository.findById(permissionGroupId).orElse(null);
