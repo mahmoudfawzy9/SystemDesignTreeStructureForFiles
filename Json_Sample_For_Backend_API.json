@@ -1,43 +1,34 @@
 [
   {
     "id": 1,
-    "userEmail": "mohamed@gmail.com",
+    "userEmail": "mahmoud@gmail.com",
     "permissionLevel": "EDIT",
     "permissionGroup": {
       "id": 1,
-      "groupName": "1",
+      "groupName": "Group 1",
       "items": [
         {
-          "id": 6,
+          "id": 1,
           "type": "FOLDER",
-          "name": "NyFolder",
-          "permissionGroup": {
-            "id": 1,
-            "groupName": "Group 1"
-          },
-          "permissions": [
-            {
-              "id": 1,
-              "userEmail": "mohamed@gmail.com",
-              "permissionLevel": "EDIT",
-              "permissionGroup": {
-                "id": 1,
-                "groupName": "Group 1"
-              }
-            }
-          ]
+          "name": "My Folder",
+          "permissionGroup": "1",
+    "permissions": [
+  {
+    "id": 1,
+    "userEmail": "mahmoud@gmail.com",
+    "permissionLevel": "EDIT",
+    "permissionGroup": 1
+          }
+         ]
         }
       ],
-      "permissions": [
-        {
-          "id": 1,
-          "userEmail": "mohamed@gmail.com",
-          "permissionLevel": "EDIT",
-          "permissionGroup": {
-            "id": 1,
-            "groupName": "Group 1"
-          }
-        }
+  "permissions": [
+  {
+    "id": 1,
+    "userEmail": "mohamed@gmail.com",
+    "permissionLevel": "EDIT",
+    "permissionGroup": 1
+  }
       ]
     }
   }
