@@ -35,8 +35,7 @@ public class UserDTOs {
         public String password;
         @JsonProperty("org_id")
         public Long orgId;
-        @JsonProperty("confirmation_flag")
-        public Boolean confirmationFlag;
+
         @JsonProperty("redirect_url")
         private String redirectUrl;
         private String avatar;
