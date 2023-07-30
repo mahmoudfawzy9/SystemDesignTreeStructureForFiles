@@ -6,6 +6,7 @@ import com.mahmoud.stc.repository.PermissionGroupRepository;
 import com.mahmoud.stc.service.Impl.UserApiResponse;
 import com.mahmoud.stc.service.ItemService;
 import com.mahmoud.stc.service.UserService;
+import com.mahmoud.stc.service.SpaceService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
