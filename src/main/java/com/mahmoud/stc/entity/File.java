@@ -1,6 +1,7 @@
 package com.mahmoud.stc.entity;
 
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "file")
@@ -9,6 +10,7 @@ public class File extends Item {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
+    @JsonIgnore
     private Folder parent;
 
     @Column(name = "file_url")
