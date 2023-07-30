@@ -24,12 +24,14 @@ public class ItemController {
     private final PermissionGroupRepository permissionGroupRepository;
 
     private final UserService userService;
+    
+    private final SpaceService spaceService;
 
-
-    public ItemController(ItemService itemService, PermissionGroupRepository permissionGroupRepository, UserService userService) {
+    public ItemController(ItemService itemService, PermissionGroupRepository permissionGroupRepository, UserService userService, SpaceService spaceService) {
         this.itemService = itemService;
         this.permissionGroupRepository = permissionGroupRepository;
         this.userService = userService;
+        this.spaceService = spaceService;
     }
 
     @PostMapping("/stc-assessments")
