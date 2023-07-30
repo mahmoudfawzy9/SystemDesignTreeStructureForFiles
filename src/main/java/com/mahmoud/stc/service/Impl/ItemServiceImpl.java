@@ -29,6 +29,7 @@ import java.util.UUID;
 
 import static com.google.common.io.Files.getNameWithoutExtension;
 import static com.mahmoud.stc.utils.StringUtils.isBlankOrNull;
+import static java.util.Optional.ofNullable;
 
 @Service
 @Transactional
