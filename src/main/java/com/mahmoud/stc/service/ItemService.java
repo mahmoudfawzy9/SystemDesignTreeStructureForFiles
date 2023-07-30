@@ -13,12 +13,9 @@ public interface ItemService {
 
     Space createSpace(String name, PermissionGroup permissionGroup, Long userId);
 
-    Folder createFolder(String name, PermissionGroup permissionGroup, Folder parent, List<Permission> permissions);
+    Folder createFolder(String name, PermissionGroup permissionGroup, Folder parent, Long userId);
 
     public String saveFileForUser(MultipartFile file, Long userId);
-
-
-//    File createFile(String name, PermissionGroup permissionGroup, MultipartFile binaryFile, Folder parent, List<Permission> permissions);
 
     File createFile(String name, PermissionGroup permissionGroup, MultipartFile binaryFile, Folder parent, Long userId);
 
