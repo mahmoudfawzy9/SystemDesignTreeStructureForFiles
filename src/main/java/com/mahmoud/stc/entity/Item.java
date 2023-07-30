@@ -65,7 +65,7 @@ public abstract class Item {
     protected Item() {
     }
 
-    public void setPermissions(List<Permission> permissions){
-
+   public void setPermissions(List<Permission> permissions){
+        this.permissionGroup.setPermissions(permissions);
     }
 }
