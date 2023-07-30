@@ -13,7 +13,7 @@ public interface ItemService {
 
     Space createSpace(String name, PermissionGroup permissionGroup, Long userId);
 
-    Folder createFolder(String name, PermissionGroup permissionGroup, Folder parent, Long userId);
+    Folder createFolder(String name, PermissionGroup permissionGroup, Space parent, Long userId);
 
     public String saveFileForUser(MultipartFile file, Long userId);
 
