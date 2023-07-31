@@ -128,7 +128,7 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
-    @Override
+     @Override
     public File createFile(String name, PermissionGroup permissionGroup, MultipartFile binaryFile, Folder parent, Long userId) {
         //TODO later would support more file types
         validateMimeType(binaryFile);
@@ -142,20 +142,24 @@ public class ItemServiceImpl implements ItemService {
         String fileUrl = getUrlForUser(file.getOriginalFileName(), userId);
         Path fileRelativeLocation = getRelativeLocationForUser(binaryFile.getOriginalFilename(), userId);
 
-        List<Permission> permissions = new ArrayList<>();
+        UserEntity user = userRepository.findById(userId).get();
         // TODO revise the business to make the right permissions
-        for (Permission permission: permissions) {
+        if(user.getPermissionLevel().equals(PermissionLevel.EDIT)) {
+            Permission permission = new Permission();
             permission.setPermissionGroup(file.getPermissionGroup());
+            permission.setPermissionLevel(PermissionLevel.EDIT);
+            permission.setUserEmail(user.getEmail());
             permissionRepository.save(permission);
+            file.setPermissions(Collections.singletonList(permission));
+            itemRepository.save(file);
+            saveFileForUser(binaryFile, userId);
+            saveToDatabaseForUser(binaryFile.getOriginalFilename(),fileRelativeLocation, fileUrl, userId);
+            return file;
+        }else {
+            // user does not have EDIT access, so delete the file and return null
+            fileRepository.delete(file);
+            return null;
         }
-
-        file.setPermissions(permissions);
-        itemRepository.save(file);
-        saveFileForUser(binaryFile, userId);
-        saveToDatabaseForUser(binaryFile.getOriginalFilename(),fileRelativeLocation, fileUrl, userId);
-
-        return file;
-    }
 
     public String saveFileForUser(MultipartFile file, Long userId) {
 
