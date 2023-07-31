@@ -72,7 +72,7 @@ public class ItemServiceImpl implements ItemService {
             }
         }
     }
-    
+
     @Override
     public Space createSpace(String name, PermissionGroup permissionGroup, Long userId) {
 
@@ -120,6 +120,7 @@ public class ItemServiceImpl implements ItemService {
         folder.setPermissionGroup(permissionGroup);
         folderRepository.save(folder);
 
+
         UserEntity user = userRepository.findById(userId).get();
 
         if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
@@ -138,7 +139,7 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
-     @Override
+    @Override
     public File createFile(String name, PermissionGroup permissionGroup, MultipartFile binaryFile, Folder parent, Long userId) {
         //TODO later would support more file types
         validateMimeType(binaryFile);
@@ -170,6 +171,9 @@ public class ItemServiceImpl implements ItemService {
             fileRepository.delete(file);
             return null;
         }
+
+
+    }
 
     public String saveFileForUser(MultipartFile file, Long userId) {
 
@@ -208,8 +212,8 @@ public class ItemServiceImpl implements ItemService {
                     aclView.setAcl(Collections.singletonList(entry));
                 }
             } catch (IOException e) {
-              e.printStackTrace();
-            throw new RuntimeException("Failed to create directory at location");
+                e.printStackTrace();
+                throw new RuntimeException("Failed to create directory at location");
             }
         }
     }
@@ -243,9 +247,9 @@ public class ItemServiceImpl implements ItemService {
     }
     private void saveToDatabaseForUser(String originalName, Path location, String url, Long userId){
 
-      if(userId == null){
-          throw new RuntimeException("No user found for the specified id");
-      }
+        if(userId == null){
+            throw new RuntimeException("No user found for the specified id");
+        }
         UserEntity user = userRepository.findById(userId).get();
 
         String mimeType = getMimeType(basePath.resolve(location));
@@ -265,7 +269,7 @@ public class ItemServiceImpl implements ItemService {
         if (!mimeType.startsWith("image") || !mimeType.startsWith("image") )
             throw new RuntimeException("Select a valid Image or video");
 
-        }
+    }
 
     private String getUrlForUser(String originalName, Long userId) {
         return ofNullable(userId)
@@ -320,6 +324,7 @@ public class ItemServiceImpl implements ItemService {
                 || Files.exists(location) ;
     }
 
+
     @Override
     public Item getItemById(Long id) {
         return itemRepository.findById(id).orElse(null);
@@ -329,5 +334,5 @@ public class ItemServiceImpl implements ItemService {
     public void deleteItemById(Long id) {
         itemRepository.deleteById(id);
     }
+    
 }
-
