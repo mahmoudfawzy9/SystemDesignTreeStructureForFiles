@@ -1,30 +1,33 @@
-version: "3.8"
-
+version: '3'
 services:
-  attachements:
+  attachments:
     build:
-      dockerfile: Dockerfile.jvm
-    ports:
-      - "9000:8080"
-    mem_limit: 400m
-    environment:
-      QUARKUS_GRPC_SERVER_USE_SEPARATE_SERVER: false
-
+      dockerfile: Dockerfile
 
   postgres:
     image: postgres:latest
-    container_name: stc
-    ports:
-      - "5432:5432"
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: dockerpass
+      POSTGRES_DB: stc
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+  app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/stc
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin
+    ports:
+      - "8081:8080"
 
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin4_container
+  swagger:
+    image: swagger
     ports:
-      - "5050:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: mahmoud@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      - "8082:8081"
+    depends_on:
+      - app
