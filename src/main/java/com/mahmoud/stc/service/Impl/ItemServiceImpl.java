@@ -78,25 +78,35 @@ public class ItemServiceImpl implements ItemService {
 
         UserEntity user = userRepository.findById(userId).get();
 
-            Space space = new Space();
-            space.setName(name);
-            space.setType(ItemType.SPACE);
-            space.setPermissionGroup(permissionGroup);
+        Space space = new Space();
+        space.setName(name);
+        space.setType(ItemType.SPACE);
+        space.setPermissionGroup(permissionGroup);
 
-            spaceRepository.save(space);
+        spaceRepository.save(space);
 
-            List<Permission> permissions = new ArrayList<>();
-            //TODO Assign the right permissions
-            if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
-                for (Permission permission: permissions) {
-                    permission.setPermissionGroup(space.getPermissionGroup());
-                    permissionRepository.save(permission);
-                }
-            }
+        //creating permissions for users with VIEW and EDIT access
+        if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
+            Permission viewPermission = new Permission();
+            viewPermission.setPermissionGroup(space.getPermissionGroup());
+            viewPermission.setPermissionLevel(PermissionLevel.VIEW);
+            viewPermission.setUserEmail("user@hotmail.com");
+            permissionRepository.save(viewPermission);
 
-            space.setPermissions(permissions);
+            Permission editPermission = new Permission();
+            editPermission.setPermissionGroup(space.getPermissionGroup());
+            editPermission.setPermissionLevel(PermissionLevel.EDIT);
+            editPermission.setUserEmail(user.getEmail());
+            permissionRepository.save(editPermission);
+
+            space.setPermissions(Arrays.asList(viewPermission,editPermission));
             itemRepository.save(space);
-            return space;   
+            return space;
+        }else {
+            // user does not have EDIT access, so delete the space and return null
+            spaceRepository.delete(space);
+            return null;
+        }
     }
 
     @Override
