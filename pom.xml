@@ -11,8 +11,8 @@
   <groupId>com.mahmoud.stc</groupId>
   <artifactId>stc-assignment</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>clinic-management-system</name>
-  <description>clinic-management-system</description>
+  <name>stc-assignment</name>
+  <description>stc-assignment</description>
   <properties>
     <java.version>17</java.version>
   </properties>
