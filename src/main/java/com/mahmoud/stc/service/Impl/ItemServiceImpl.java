@@ -320,7 +320,6 @@ public class ItemServiceImpl implements ItemService {
                 || Files.exists(location) ;
     }
 
-
     @Override
     public Item getItemById(Long id) {
         return itemRepository.findById(id).orElse(null);
@@ -329,15 +328,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void deleteItemById(Long id) {
         itemRepository.deleteById(id);
-    }
-
-    private void assignPermissions(Item item, List<Permission> permissions) {
-        for (Permission permission : permissions) {
-            permission.setPermissionGroup(item.getPermissionGroup());
-            permissionRepository.save(permission);
-        }
-        item.setPermissions(permissions);
-        itemRepository.save(item);
     }
 }
 
