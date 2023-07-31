@@ -99,7 +99,7 @@ public class ItemServiceImpl implements ItemService {
             return space;   
     }
 
-  @Override
+    @Override
     public Folder createFolder(String name, PermissionGroup permissionGroup, Space parent, Long userId) {
 
         List<Permission> permissions = new ArrayList<>();
@@ -110,19 +110,22 @@ public class ItemServiceImpl implements ItemService {
         folder.setPermissionGroup(permissionGroup);
         folderRepository.save(folder);
 
-
         UserEntity user = userRepository.findById(userId).get();
-        //TODO would handle the VIEW and other permissions
-        if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
-            for (Permission permission : permissions) {
-                permission.setPermissionGroup(folder.getPermissionGroup());
-                permissionRepository.save(permission);
-            }
-        }
 
-        folder.setPermissions(permissions);
-        itemRepository.save(folder);
-        return folder;
+        if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
+            Permission permission = new Permission();
+            permission.setPermissionGroup(folder.getPermissionGroup());
+            permission.setPermissionLevel(PermissionLevel.EDIT);
+            permission.setUserEmail(user.getEmail());
+            permissionRepository.save(permission);
+            folder.setPermissions(Collections.singletonList(permission));
+            itemRepository.save(folder);
+            return folder;
+        }else{
+            // user does not have EDIT access, so delete the folder and return null
+            folderRepository.delete(folder);
+            return null;
+        }
     }
 
     @Override
