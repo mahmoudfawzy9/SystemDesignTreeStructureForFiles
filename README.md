@@ -2,6 +2,7 @@
 * Tree Structure for Files Management System app name:  stc-assignment, port 8080, db name: stc, postgres, Java 17, Spring boot.
 * Hash or comment The Data Loader class to test manually on swagger open api.
 * Making credentials for the docker to connect to postgres.
+* Migrating to Jakarta Persistence is recommended. 
 * http://localhost:8080/swagger-ui.html
 * FirstStep is to create user schema is ready just make a post request.
 * Secondly, Create PermissionGroup, Permission, Space, Folder, File accordingly.
