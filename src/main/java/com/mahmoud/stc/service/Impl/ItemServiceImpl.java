@@ -87,19 +87,14 @@ public class ItemServiceImpl implements ItemService {
 
         //creating permissions for users with VIEW and EDIT access
         if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
-            Permission viewPermission = new Permission();
-            viewPermission.setPermissionGroup(space.getPermissionGroup());
-            viewPermission.setPermissionLevel(PermissionLevel.VIEW);
-            viewPermission.setUserEmail("user@hotmail.com");
-            permissionRepository.save(viewPermission);
-
+         
             Permission editPermission = new Permission();
             editPermission.setPermissionGroup(space.getPermissionGroup());
             editPermission.setPermissionLevel(PermissionLevel.EDIT);
             editPermission.setUserEmail(user.getEmail());
             permissionRepository.save(editPermission);
 
-            space.setPermissions(Arrays.asList(viewPermission,editPermission));
+            space.setPermissions(Arrays.asList(editPermission));
             itemRepository.save(space);
             return space;
         }else {
