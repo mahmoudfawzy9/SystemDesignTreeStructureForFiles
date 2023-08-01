@@ -3,7 +3,7 @@ package com.mahmoud.stc.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.mahmoud.stc.enums.PermissionLevel;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 @Entity
