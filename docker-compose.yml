@@ -4,7 +4,9 @@ services:
   attachments:
     build:
       dockerfile: Dockerfile
-
+    environment:
+      JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64
+    command: [ "/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java", "-cp", "/app/target/classes:/app/src/main/resources", "com.stc.mahmoud" ]
   postgres:
     image: postgres:latest
     environment:
@@ -26,11 +28,4 @@ services:
     ports:
       - "8081:8080"
 
-  swagger:
-    environment:
-      DOCKER_ACCESS_KEY: <ACCESS_TOKEN>
-    image: swagger
-    ports:
-      - "8081:8080"
-    depends_on:
-      - app
+
