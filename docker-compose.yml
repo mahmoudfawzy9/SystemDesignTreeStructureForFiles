@@ -1,12 +1,6 @@
 version: '3'
 
 services:
-  attachments:
-    build:
-      dockerfile: Dockerfile
-    environment:
-      JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64
-    command: [ "/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java", "-cp", "/app/target/classes:/app/src/main/resources", "com.stc.mahmoud.StcApplication" ]
   postgres:
     image: postgres:latest
     environment:
@@ -17,15 +11,6 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5433:5432"
-  app:
-    build: .
-    depends_on:
-      - postgres
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/stc
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: admin
-    ports:
-      - "8081:8080"
+
 
 
