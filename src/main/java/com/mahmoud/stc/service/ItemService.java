@@ -3,8 +3,7 @@ package com.mahmoud.stc.service;
 import com.mahmoud.stc.entity.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.PostConstruct;
-import java.util.List;
+import jakarta.annotation.PostConstruct;
 
 public interface ItemService {
 
