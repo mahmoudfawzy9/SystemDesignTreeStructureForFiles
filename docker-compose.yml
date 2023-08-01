@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   attachments:
     build:
@@ -26,8 +27,10 @@ services:
       - "8081:8080"
 
   swagger:
+    environment:
+      DOCKER_ACCESS_KEY: <ACCESS_TOKEN>
     image: swagger
     ports:
-      - "8082:8081"
+      - "8081:8080"
     depends_on:
       - app
