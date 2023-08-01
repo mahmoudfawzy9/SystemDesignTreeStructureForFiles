@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     environment:
       JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64
-    command: [ "/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java", "-cp", "/app/target/classes:/app/src/main/resources", "com.stc.mahmoud" ]
+    command: [ "/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java", "-cp", "/app/target/classes:/app/src/main/resources", "com.stc.mahmoud.StcApplication" ]
   postgres:
     image: postgres:latest
     environment:
