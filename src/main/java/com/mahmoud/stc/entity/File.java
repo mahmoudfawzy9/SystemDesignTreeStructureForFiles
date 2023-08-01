@@ -1,6 +1,6 @@
 package com.mahmoud.stc.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
