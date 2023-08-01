@@ -3,11 +3,9 @@ package com.mahmoud.stc.service;
 import com.mahmoud.stc.entity.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.annotation.PostConstruct;
 
 public interface ItemService {
 
-    @PostConstruct
     void setupFileLocation() throws RuntimeException;
 
     Space createSpace(String name, PermissionGroup permissionGroup, Long userId);
