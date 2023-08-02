@@ -2,7 +2,6 @@ package com.mahmoud.stc.entity;
 
 import com.mahmoud.stc.enums.PermissionLevel;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
