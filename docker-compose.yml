@@ -13,22 +13,7 @@ services:
     ports:
       - "5432:5432"
 
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    container_name: pgadmin4_container
-#    ports:
-#      - "5050:80"
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: mahmoud@gmail.com
-#      PGADMIN_DEFAULT_PASSWORD: admin
 
-#  attachments:
-#    build:
-#      dockerfile: Dockerfile.jvm
-#    image: stc
-#    environment:
-#      JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-amd64
-#    command: ["java", "-jar", "{jarName}.jar"]
 
 
 
