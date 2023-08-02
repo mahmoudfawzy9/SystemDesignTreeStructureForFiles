@@ -68,7 +68,7 @@ public class ItemServiceImpl implements ItemService {
             try {
                 Files.createDirectories(basePath);
             } catch (Exception ex) {
-                throw new RuntimeException("Could not create the Base directory for storing files!");
+                throw new InvalidRequestStateException(BusinessMessage.RUNTIME_EXCEPTION);
             }
         }
     }
