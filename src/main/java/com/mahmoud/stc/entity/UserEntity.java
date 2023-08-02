@@ -1,12 +1,10 @@
 package com.mahmoud.stc.entity;
 
 import com.mahmoud.stc.enums.PermissionLevel;
-import lombok.Data;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseUserEntity {
