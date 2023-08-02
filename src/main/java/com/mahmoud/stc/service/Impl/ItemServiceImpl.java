@@ -37,9 +37,8 @@ import static java.util.Optional.ofNullable;
 @Transactional
 public class ItemServiceImpl implements ItemService {
 
-    @Autowired
-    private AppConfig appConfig;
-    private Path basePath;
+    private final AppConfig appConfig;
+    private final Path basePath;
     private final ItemRepository itemRepository;
     private final SpaceRepository spaceRepository;
     private final FolderRepository folderRepository;
@@ -52,13 +51,15 @@ public class ItemServiceImpl implements ItemService {
                            SpaceRepository spaceRepository,
                            FolderRepository folderRepository,
                            FileRepository fileRepository,
-                           UserRepository userRepository, PermissionRepository permissionRepository) {
+                           UserRepository userRepository, PermissionRepository permissionRepository, AppConfig appConfig, Path path) {
         this.itemRepository = itemRepository;
         this.spaceRepository = spaceRepository;
         this.folderRepository = folderRepository;
         this.fileRepository = fileRepository;
         this.userRepository = userRepository;
         this.permissionRepository = permissionRepository;
+        this.appConfig = appConfig;
+        this.basePath = path;
     }
 
     @Override
