@@ -1,13 +1,13 @@
 package com.mahmoud.stc.entity;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-@Data
+@EqualsAndHashCode(callSuper=false)
 public abstract class BaseUserEntity extends DefaultBusinessEntity<Long> {
 
     @Column(name = "email")
