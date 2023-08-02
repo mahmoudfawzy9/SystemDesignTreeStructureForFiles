@@ -5,6 +5,8 @@ public class BusinessMessage {
 
     public static final String INVALID_REQUEST_EXCEPTION = "A parent must be specified for the folder";
 
+    public static final String RUNTIME_EXCEPTION = "Could not create the Base directory for storing files!";
+
 
     private BusinessMessage() {
         throw new IllegalStateException(ILLEGAL_STATE_EXCEPTION);
