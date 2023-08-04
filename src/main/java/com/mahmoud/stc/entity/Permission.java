@@ -1,7 +1,7 @@
 package com.mahmoud.stc.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.mahmoud.stc.enums.PermissionLevel;
+import com.mahmoud.stc.enums.Role;
 
 import jakarta.persistence.*;
 
@@ -19,7 +19,7 @@ public class Permission {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "permission_level")
-    private PermissionLevel permissionLevel;
+    private Role permissionLevel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "permission_group_id")
@@ -46,7 +46,7 @@ public class Permission {
         return permissionLevel;
     }
 
-    public void setPermissionLevel(PermissionLevel permissionLevel) {
+    public void setPermissionLevel(Role permissionLevel) {
         this.permissionLevel = permissionLevel;
     }
 
