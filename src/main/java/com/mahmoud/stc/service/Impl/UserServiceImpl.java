@@ -2,16 +2,18 @@ package com.mahmoud.stc.service.Impl;
 
 import com.mahmoud.stc.DTO.UserDTOs;
 import com.mahmoud.stc.entity.UserEntity;
-import com.mahmoud.stc.enums.PermissionLevel;
 import com.mahmoud.stc.enums.ResponseStatus;
+import com.mahmoud.stc.enums.Role;
 import com.mahmoud.stc.repository.UserRepository;
 import com.mahmoud.stc.service.ItemService;
 import com.mahmoud.stc.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.mahmoud.stc.enums.ResponseStatus.ACTIVATION_SENT;
@@ -25,7 +27,7 @@ import static java.util.Arrays.asList;
 public class UserServiceImpl implements UserService {
 
 
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     private final UserRepository userRepository;
 
@@ -33,11 +35,10 @@ public class UserServiceImpl implements UserService {
 
     private UserEntity createNewUserEntity(UserDTOs.UserRegistrationObject userJson) {
         UserEntity user = new UserEntity();
-        user.setName(userJson.getName());
+        user.setUserName(userJson.getName());
         user.setEmail(userJson.getEmail());
-        user.setPermissionLevel(PermissionLevel.valueOf(userJson.permissionLevel));
-        //TODO Add password encryption
-//        user.setEncryptedPassword(passwordEncoder.encode(userJson.password));
+        user.setRoles(Collections.singletonList(Role.valueOf(userJson.permissionLevel)));
+        user.setEncryptedPassword(passwordEncoder.encode(userJson.password));
         user.setPhoneNumber(userJson.getPhoneNumber());
         user.setAvatar(userJson.getAvatar());
         return user;
@@ -72,7 +73,6 @@ public class UserServiceImpl implements UserService {
         UserEntity user = createNewUserEntity(userJson);
 
         user = userRepository.saveAndFlush(user);
-
 
         return new UserApiResponse(user.getId(), asList(NEED_ACTIVATION, ACTIVATION_SENT));
     }
