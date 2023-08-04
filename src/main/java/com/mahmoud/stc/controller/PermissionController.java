@@ -2,7 +2,7 @@ package com.mahmoud.stc.controller;
 
 import com.mahmoud.stc.entity.Permission;
 import com.mahmoud.stc.entity.PermissionGroup;
-import com.mahmoud.stc.enums.PermissionLevel;
+import com.mahmoud.stc.enums.Role;
 import com.mahmoud.stc.repository.PermissionGroupRepository;
 import com.mahmoud.stc.service.PermissionGroupService;
 import com.mahmoud.stc.service.PermissionService;
@@ -31,7 +31,7 @@ public class PermissionController {
     }
 
     @PostMapping("/permission")
-    public Permission createPermission(@RequestParam String userEmail, @RequestParam PermissionLevel permissionLevel, @RequestParam Long permissionGroupId) {
+    public Permission createPermission(@RequestParam String userEmail, @RequestParam Role permissionLevel, @RequestParam Long permissionGroupId) {
         PermissionGroup permissionGroup = permissionGroupRepository.findById(permissionGroupId).orElse(null);
         return permissionService.createPermission(userEmail, permissionLevel, permissionGroup);
     }
