@@ -33,7 +33,8 @@ public class StringUtils extends org.springframework.util.StringUtils{
         return !isBlankOrNull(object);
     }
 
-
-
-
+    public static String generateUUIDToken() {
+        return UUID.randomUUID().toString();
     }
+
+}
