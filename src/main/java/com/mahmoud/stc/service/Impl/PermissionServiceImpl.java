@@ -2,7 +2,7 @@ package com.mahmoud.stc.service.Impl;
 
 import com.mahmoud.stc.entity.Permission;
 import com.mahmoud.stc.entity.PermissionGroup;
-import com.mahmoud.stc.enums.PermissionLevel;
+import com.mahmoud.stc.enums.Role;
 import com.mahmoud.stc.exception.PermissionNotFoundException;
 import com.mahmoud.stc.repository.PermissionGroupRepository;
 import com.mahmoud.stc.repository.PermissionRepository;
@@ -33,7 +33,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Permission createPermission(String userEmail, PermissionLevel permissionLevel, PermissionGroup permissionGroup) {
+    public Permission createPermission(String userEmail, Role permissionLevel, PermissionGroup permissionGroup) {
         Permission permission = new Permission();
         permission.setUserEmail(userEmail);
         permission.setPermissionLevel(permissionLevel);
