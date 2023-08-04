@@ -2,7 +2,7 @@ package com.mahmoud.stc.bootstrap;
 
 import com.mahmoud.stc.entity.*;
 import com.mahmoud.stc.enums.ItemType;
-import com.mahmoud.stc.enums.PermissionLevel;
+import com.mahmoud.stc.enums.Role;
 import com.mahmoud.stc.repository.ItemRepository;
 import com.mahmoud.stc.repository.PermissionGroupRepository;
 import com.mahmoud.stc.repository.PermissionRepository;
@@ -37,12 +37,12 @@ public class DataLoader implements CommandLineRunner {
 
         Permission permission1 = new Permission();
         permission1.setUserEmail("mohamed@gmail.com");
-        permission1.setPermissionLevel(PermissionLevel.EDIT);
+        permission1.setPermissionLevel(Role.EDIT);
         permission1.setPermissionGroup(group1);
 
         Permission permission2 = new Permission();
         permission2.setUserEmail("mahmoud@gmail.com");
-        permission2.setPermissionLevel(PermissionLevel.VIEW);
+        permission2.setPermissionLevel(Role.VIEW);
         permission2.setPermissionGroup(group2);
 
         permissionRepository.saveAll(Arrays.asList(permission1, permission2));
