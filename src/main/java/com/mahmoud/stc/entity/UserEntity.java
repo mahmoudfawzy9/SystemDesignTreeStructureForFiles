@@ -1,20 +1,34 @@
 package com.mahmoud.stc.entity;
 
-import com.mahmoud.stc.enums.PermissionLevel;
+import com.mahmoud.stc.enums.Role;
 
+import com.mahmoud.stc.enums.UserStatus;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseUserEntity {
+@EqualsAndHashCode(callSuper = false)
+public class UserEntity extends BaseUserEntity implements UserDetails {
+
 
     @Column(name = "user_name")
-    private String name;
+    private String userName;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "permission_level")
-    private PermissionLevel permissionLevel;
+    private List<Role> roles;
 
     @Column(name = "first_name")
     private String firstName;
@@ -24,55 +38,54 @@ public class UserEntity extends BaseUserEntity {
 
     @Column(name = "mobile")
     private String mobile;
-
     @Column(name = "date_of_birth")
     private LocalDateTime dateOfBirth;
 
-    public String getName() {
-        return name;
+
+    @Override
+    public List<GrantedAuthority> getAuthorities(){
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.toString())));
+        return authorities;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    @Override
+    public String getPassword() {
+        return getEncryptedPassword();
     }
 
-    public String getFirstName() {
-        return firstName;
+    @Override
+    public String getUsername() {
+        return getUsername();
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getLastName() {
-        return lastName;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public String getMobile() {
-        return mobile;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public LocalDateTime getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public PermissionLevel getPermissionLevel() {
-        return permissionLevel;
-    }
-
-    public void setPermissionLevel(PermissionLevel permissionLevel) {
-        this.permissionLevel = permissionLevel;
+    @Override
+    public UserRepresentationObject getRepresentation() {
+        UserRepresentationObject obj = new UserRepresentationObject();
+        obj.setId(getId());
+        obj.setStatus(UserStatus.getUserStatus(getUserStatus()).name());
+        obj.setImage(this.getAvatar());
+        return obj;
     }
 }
