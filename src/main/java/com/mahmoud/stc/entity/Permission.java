@@ -42,7 +42,7 @@ public class Permission {
         this.userEmail = userEmail;
     }
 
-    public PermissionLevel getPermissionLevel() {
+    public Role getPermissionLevel() {
         return permissionLevel;
     }
 
