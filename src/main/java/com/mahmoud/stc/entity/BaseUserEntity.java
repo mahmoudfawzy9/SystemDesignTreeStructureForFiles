@@ -154,4 +154,6 @@ public abstract class BaseUserEntity extends DefaultBusinessEntity<Long> {
     public void setCreationTime(LocalDateTime creationTime) {
         this.creationTime = creationTime;
     }
+    
+    public abstract UserRepresentationObject getRepresentation();
 }
