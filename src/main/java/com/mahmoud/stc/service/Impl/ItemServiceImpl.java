@@ -4,12 +4,11 @@ import com.google.common.net.MediaType;
 import com.mahmoud.stc.config.AppConfig;
 import com.mahmoud.stc.entity.*;
 import com.mahmoud.stc.enums.ItemType;
-import com.mahmoud.stc.enums.PermissionLevel;
+import com.mahmoud.stc.enums.Role;
 import com.mahmoud.stc.repository.*;
 import com.mahmoud.stc.service.ItemService;
 import com.mahmoud.stc.utils.StringUtils;
 import org.apache.tika.Tika;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -88,11 +87,11 @@ public class ItemServiceImpl implements ItemService {
         spaceRepository.save(space);
 
         //creating permissions for users with VIEW and EDIT access
-        if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
+        if (user.getRoles().equals(Role.EDIT)){
          
             Permission editPermission = new Permission();
             editPermission.setPermissionGroup(space.getPermissionGroup());
-            editPermission.setPermissionLevel(PermissionLevel.EDIT);
+            editPermission.setPermissionLevel(Role.EDIT);
             editPermission.setUserEmail(user.getEmail());
             permissionRepository.save(editPermission);
 
@@ -120,10 +119,10 @@ public class ItemServiceImpl implements ItemService {
 
         UserEntity user = userRepository.findById(userId).get();
 
-        if (user.getPermissionLevel().equals(PermissionLevel.EDIT)){
+        if (user.getRoles().equals(Role.EDIT)){
             Permission permission = new Permission();
             permission.setPermissionGroup(folder.getPermissionGroup());
-            permission.setPermissionLevel(PermissionLevel.EDIT);
+            permission.setPermissionLevel(Role.EDIT);
             permission.setUserEmail(user.getEmail());
             permissionRepository.save(permission);
             folder.setPermissions(Collections.singletonList(permission));
@@ -152,10 +151,10 @@ public class ItemServiceImpl implements ItemService {
 
         UserEntity user = userRepository.findById(userId).get();
         // TODO revise the business to make the right permissions
-        if(user.getPermissionLevel().equals(PermissionLevel.EDIT)) {
+        if(user.getRoles().equals(Role.EDIT)) {
             Permission permission = new Permission();
             permission.setPermissionGroup(file.getPermissionGroup());
-            permission.setPermissionLevel(PermissionLevel.EDIT);
+            permission.setPermissionLevel(Role.EDIT);
             permission.setUserEmail(user.getEmail());
             permissionRepository.save(permission);
             file.setPermissions(Collections.singletonList(permission));
@@ -168,8 +167,6 @@ public class ItemServiceImpl implements ItemService {
             fileRepository.delete(file);
             return null;
         }
-
-
     }
 
     public String saveFileForUser(MultipartFile file, Long userId) {
@@ -194,6 +191,7 @@ public class ItemServiceImpl implements ItemService {
 
         return fileUrl;
     }
+    
     private void createDirIfNotExists(Path saveDir) {
         if(!Files.exists(saveDir)) {
             try {
@@ -214,6 +212,7 @@ public class ItemServiceImpl implements ItemService {
             }
         }
     }
+    
     private void saveFileForUser(MultipartFile file, String uniqueFileName, Long userId) {
         if (file == null || file.isEmpty())
             throw new IllegalArgumentException("Invalid file");
@@ -229,6 +228,7 @@ public class ItemServiceImpl implements ItemService {
             throw new RuntimeException("Failed to save file Organization directory at location");
         }
     }
+    
     private String getMimeType(Path file) {
         String mimeType = MediaType.OCTET_STREAM.toString();
 
@@ -239,9 +239,9 @@ public class ItemServiceImpl implements ItemService {
             e.printStackTrace();
             throw new RuntimeException("Failed to parse MIME type for the file:");
         }
-
         return mimeType;
     }
+    
     private void saveToDatabaseForUser(String originalName, Path location, String url, Long userId){
 
         if(userId == null){
@@ -312,6 +312,7 @@ public class ItemServiceImpl implements ItemService {
         String uuid = UUID.randomUUID().toString().replace("-", "");
         return String.format("%s-%s.%s", origNameNoExtension, uuid , ext);
     }
+    
     private boolean notUniqueFileName(String origName, Long userId) {
         String url = getUrlForUser(origName, userId);
         Path location = getRelativeLocationForUser(origName, userId);
