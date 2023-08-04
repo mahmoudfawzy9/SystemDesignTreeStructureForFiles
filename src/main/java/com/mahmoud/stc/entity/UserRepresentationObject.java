@@ -14,6 +14,7 @@ import java.util.Set;
 public class UserRepresentationObject {
 
     public Long id;
+
     public String name;
     public String email;
     public String image;
@@ -23,16 +24,11 @@ public class UserRepresentationObject {
     public String firstName;
     public String lastName;
     public Long organizationId;
-    public Long shopId;
     public Set<String> roles;
     public String status;
     public LocalDateTime creationDate;
-    public Long familyId;
-    public Long tierId;
-    public Boolean allowReward;
     public LocalDateTime dateOfBirth;
     public LocalDateTime tierCreatedAt;
-    public Long boosterId;
     public String referral;
     public Boolean isInfluencer;
 
