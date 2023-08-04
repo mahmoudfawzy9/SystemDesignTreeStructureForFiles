@@ -2,6 +2,7 @@ package com.mahmoud.stc.utils;
 
 
 import java.util.Collection;
+import java.util.UUID;
 
 public class StringUtils extends org.springframework.util.StringUtils{
 
