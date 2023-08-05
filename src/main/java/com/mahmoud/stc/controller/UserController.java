@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping(value = "avatar", produces =  APPLICATION_JSON_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
-    public UserApiResponse bonusApiToUpdateUserAvatar(@RequestParam Long userId, @RequestPart("file")@Valid MultipartFile file){
+    public UserApiResponse bonusApiToUpdateUserAvatar(@RequestHeader (name = "User-Token") String userToken, @RequestParam Long userId, @RequestPart("file")@Valid MultipartFile file){
 
     return this.userService.updateUserAvatar(file, userId);
 
