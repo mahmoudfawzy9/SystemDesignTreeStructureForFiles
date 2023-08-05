@@ -3,7 +3,6 @@ package com.mahmoud.stc.controller;
 import com.mahmoud.stc.entity.*;
 import com.mahmoud.stc.repository.PermissionGroupRepository;
 import com.mahmoud.stc.service.*;
-import com.mahmoud.stc.service.Impl.UserApiResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,17 +19,14 @@ public class ItemController {
 
     private final PermissionGroupRepository permissionGroupRepository;
 
-    private final UserService userService;
-
     private final SpaceService spaceService;
 
     private final FolderService folderService;
 
 
-    public ItemController(ItemService itemService, PermissionGroupRepository permissionGroupRepository, UserService userService, SpaceService spaceService, FolderService folderService) {
+    public ItemController(ItemService itemService, PermissionGroupRepository permissionGroupRepository, SpaceService spaceService, FolderService folderService) {
         this.itemService = itemService;
         this.permissionGroupRepository = permissionGroupRepository;
-        this.userService = userService;
         this.spaceService = spaceService;
         this.folderService = folderService;
     }
@@ -65,10 +61,4 @@ public class ItemController {
         itemService.deleteItemById(id);
     }
 
-    @PostMapping(value = "avatar", produces =  APPLICATION_JSON_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
-    public UserApiResponse bonusApiToUpdateUserAvatar(@RequestParam Long userId, @RequestPart("file")@Valid MultipartFile file){
-
-        return this.userService.updateUserAvatar(file, userId);
-
-    }
 }
