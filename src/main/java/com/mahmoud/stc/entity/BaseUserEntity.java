@@ -155,5 +155,4 @@ public abstract class BaseUserEntity extends DefaultBusinessEntity<Long> {
         this.creationTime = creationTime;
     }
     
-    public abstract UserRepresentationObject getRepresentation();
 }
