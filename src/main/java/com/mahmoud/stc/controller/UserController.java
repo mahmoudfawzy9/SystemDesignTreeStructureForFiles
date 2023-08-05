@@ -19,13 +19,13 @@ public class UserController {
     @PostMapping(value = "v2/register", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
     public UserApiResponse registerUserV2(@RequestBody UserDTOs.UserRegistrationObject userJson) throws RuntimeException {
-        return this.userService.registerUser(userJson);
+    return this.userService.registerUser(userJson);
     }
 
-        @PostMapping(value = "avatar", produces =  APPLICATION_JSON_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "avatar", produces =  APPLICATION_JSON_VALUE, consumes = MULTIPART_FORM_DATA_VALUE)
     public UserApiResponse bonusApiToUpdateUserAvatar(@RequestParam Long userId, @RequestPart("file")@Valid MultipartFile file){
 
-        return this.userService.updateUserAvatar(file, userId);
+    return this.userService.updateUserAvatar(file, userId);
 
     }
 }
