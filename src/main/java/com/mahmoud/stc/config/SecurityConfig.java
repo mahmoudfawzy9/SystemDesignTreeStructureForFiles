@@ -67,6 +67,8 @@ public class SecurityConfig {
 
     private List<AuthPattern> permissions = asList(
             //url pattern	-------------------------	Method	------------	Roles
+            patternOf("/user/v2/register"                  ,HttpMethod.POST, setOf(Role.ADMIN)),
+            patternOf("/user/avatar"                      ,HttpMethod.POST, setOf(Role.EDIT)),
             patternOf( "/items/stc-assessments"			,HttpMethod.POST	, setOf(Role.ADMIN)),
             patternOf( "/items/stc-assessments/backend"	,HttpMethod.POST	, setOf(Role.ADMIN, Role.EDIT)),
             patternOf( "/items/assessment.pdf"				,HttpMethod.POST	, setOf(Role.ADMIN)),
@@ -77,11 +79,8 @@ public class SecurityConfig {
     private List<AuthPattern> PUBLIC_URLS =
             asList(
                     patternOf("/callbacks/**")
-                    , patternOf("/user/v2/register")
                     , patternOf("/user/login/**")
                     , patternOf("/user/register")
-                    , patternOf("/items/avatar")
-
             );
 
 
