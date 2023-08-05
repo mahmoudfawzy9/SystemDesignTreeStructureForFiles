@@ -67,7 +67,7 @@ public class SecurityConfig {
 
     private List<AuthPattern> permissions = asList(
             //url pattern	-------------------------	Method	------------	Roles
-            patternOf("/user/v2/register"                  ,HttpMethod.POST, setOf(Role.ADMIN)),
+            patternOf("/user/v2/register"                  ,HttpMethod.POST, setOf(Role.EDIT)),
             patternOf("/user/avatar"                      ,HttpMethod.POST, setOf(Role.EDIT)),
             patternOf( "/items/stc-assessments"			,HttpMethod.POST	, setOf(Role.ADMIN)),
             patternOf( "/items/stc-assessments/backend"	,HttpMethod.POST	, setOf(Role.ADMIN, Role.EDIT)),
