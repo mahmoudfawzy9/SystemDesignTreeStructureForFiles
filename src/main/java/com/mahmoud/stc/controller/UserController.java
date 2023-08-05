@@ -3,11 +3,14 @@ package com.mahmoud.stc.controller;
 import com.mahmoud.stc.service.Impl.UserApiResponse;
 import com.mahmoud.stc.DTO.UserDTOs;
 import com.mahmoud.stc.service.Impl.UserServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @RestController
 @RequestMapping("/user")
