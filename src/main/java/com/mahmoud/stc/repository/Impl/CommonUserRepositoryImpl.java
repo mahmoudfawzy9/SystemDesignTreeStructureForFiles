@@ -36,7 +36,7 @@ public class CommonUserRepositoryImpl implements CommonUserRepository {
 
     private List<String> getCustomerUserRoles() {
         // for now, return default role which is Customer
-        return Collections.singletonList(Role.VIEW.name());
+        return Collections.singletonList(Role.EDIT.name());
     }
 
 
