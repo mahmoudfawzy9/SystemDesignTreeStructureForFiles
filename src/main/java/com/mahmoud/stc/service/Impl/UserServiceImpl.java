@@ -44,14 +44,31 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+        public UserApiResponse registerUser(UserDTOs.UserRegistrationObject userJson) {
+
+        UserEntity user = createNewUserEntity(userJson);
+
+        user = userRepository.saveAndFlush(user);
+
+        return new UserApiResponse(user.getId(), asList(NEED_ACTIVATION, ACTIVATION_SENT));
+    }
+    
     public UserApiResponse updateUserAvatar(MultipartFile file, Long userId) {
 
  //       TODO Add permissions security to get current user by security service
+
         if(userId == null){
+            throw new RuntimeException("No user id found");
+        }
+
+//        UserEntity userEntity = (UserEntity) securityService.getCurrentUser();
+
+        Optional<UserEntity> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
             throw new RuntimeException("No user found for the specified id");
         }
-        UserEntity userEntity = userRepository.findById(userId).get();
-
+        UserEntity userEntity = userOptional.get();
+        
         List<ResponseStatus> successResponseStatusList = new ArrayList<>();
 
         String imageUrl = itemService.saveFileForUser(file,userId);
@@ -59,6 +76,7 @@ public class UserServiceImpl implements UserService {
 
             //First, set the new image url
             userEntity.setAvatar(imageUrl);
+
         }
 
         if (successResponseStatusList.isEmpty()) {
@@ -68,12 +86,4 @@ public class UserServiceImpl implements UserService {
         return new UserApiResponse(userId, imageUrl, successResponseStatusList);
     }
 
-    public UserApiResponse registerUser(UserDTOs.UserRegistrationObject userJson) {
-
-        UserEntity user = createNewUserEntity(userJson);
-
-        user = userRepository.saveAndFlush(user);
-
-        return new UserApiResponse(user.getId(), asList(NEED_ACTIVATION, ACTIVATION_SENT));
-    }
 }
